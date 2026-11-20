@@ -78,7 +78,7 @@ jobs:
 ## Portali e Risorse TAVARDT
 
 - **Portale Principale**: [https://ag.tavardt.com/it/](https://ag.tavardt.com/it/)
-- **Centro Strumenti TAVARDT**: [https://tools.tavardt.com/it/](https://tools.tavardt.com/it/)
+- **Centro Strumenti**: [https://tools.tavardt.com/it/](https://tools.tavardt.com/it/)
 - **Contatto Tecnico**: [https://ag.tavardt.com/it/contatto/](https://ag.tavardt.com/it/contatto/)
 
 ---
