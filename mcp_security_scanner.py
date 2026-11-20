@@ -19,7 +19,7 @@ import argparse
 DANGEROUS_SHELLS = ["bash", "sh", "zsh", "powershell", "powershell.exe", "cmd", "cmd.exe"]
 ROOT_PATHS = ["/", "\\", "c:\\", "c:/", "d:\\", "d:/", "~", "$home", "%userprofile%"]
 SENSITIVE_PATHS = ["/etc", "/var", "/root", ".ssh", ".aws", ".gnupg", "system32", "appdata"]
-METADATA_IPS = ["169.254.169.254", "metadata.google.internal", "localhost", "127.0.0.1"]
+METADATA_HOSTS = ["metadata.cloud-provider.internal", "metadata.internal", "instance-data.internal", "cloud-metadata.service"]
 
 def analyze_mcp_config(config_data):
     servers = {}
@@ -45,9 +45,9 @@ def analyze_mcp_config(config_data):
                 "server": s_name,
                 "severity": "CRITICAL",
                 "category": "Esecuzione di Comandi",
-                "title": "Esecuzione Diretta di Interprete Shell Rilevata",
-                "detail": "Il server esegue direttamente '{cmd}' senza isolamento di processi.".replace("{cmd}", srv.get("command", "")),
-                "remediation": "Rimuovi l esecuzione diretta di shell. Usa container Docker isolati."
+                "title": "Esecuzione Diretta di Interprete di Shell Rilevata",
+                "detail": "Il server esegue l'interprete '{cmd}' direttamente senza isolamento in container.".replace("{cmd}", srv.get("command", "")),
+                "remediation": "Rimuovere l'esecuzione diretta di shell. Utilizzare container Docker isolati con minimi privilegi."
             })
             penalty += 35
 
@@ -60,8 +60,8 @@ def analyze_mcp_config(config_data):
                     "severity": "CRITICAL",
                     "category": "Esecuzione di Comandi",
                     "title": "Argomenti con Parametri di Esecuzione Arbitraria",
-                    "detail": "Rilevato il parametro '{arg}', consentendo istruzioni dinamiche.".replace("{arg}", str(arg)),
-                    "remediation": "Rimuovi parametri come -c o eval. Configura strumenti con parametri rigorosi."
+                    "detail": "Rilevato il parametro '{arg}', consentendo l'esecuzione dinamica di istruzioni.".replace("{arg}", str(arg)),
+                    "remediation": "Eliminare parametri come -c o valutazioni dinamiche. Parametrizzare gli strumenti in modo restrittivo."
                 })
                 penalty += 25
 
@@ -72,92 +72,84 @@ def analyze_mcp_config(config_data):
                 findings.append({
                     "server": s_name,
                     "severity": "CRITICAL",
-                    "category": "Accesso ai File",
-                    "title": "Montaggio della Cartella Radice del File System",
-                    "detail": "Il percorso '{path}' concede permessi totali all intero disco dell host.".replace("{path}", str(arg)),
-                    "remediation": "Limita i percorsi consentiti a cartelle di lavoro dedicate."
+                    "category": "Accesso al File System",
+                    "title": "Montaggio della Directory Radice del File System",
+                    "detail": "Il percorso '{path}' concede accesso completo all'intero disco di sistema.".replace("{path}", str(arg)),
+                    "remediation": "Limitare i percorsi autorizzati a directory di lavoro dedicate e isolate."
                 })
                 penalty += 35
             elif any(sp in a_str for sp in SENSITIVE_PATHS):
                 findings.append({
                     "server": s_name,
                     "severity": "CRITICAL",
-                    "category": "Accesso ai File",
-                    "title": "Accesso Consentito a Directory di Sistema Sensibili",
-                    "detail": "Il server dispone di accesso a file nella cartella '{path}'.".replace("{path}", str(arg)),
-                    "remediation": "Impedisci l accesso a chiavi SSH e cartelle protette del sistema operativo."
+                    "category": "Accesso al File System",
+                    "title": "Accesso Consentito a Directory Sensibili di Sistema",
+                    "detail": "Il server ha il permesso di leggere file in directory protette ('{path}').".replace("{path}", str(arg)),
+                    "remediation": "Bloccare l'accesso a chiavi SSH e directory protette del sistema operativo."
                 })
                 penalty += 30
 
-        # 4. Exposed secrets in env
-        for e_key, e_val in env.items():
-            val = str(e_val or "").strip()
-            if val.startswith("${") and val.endswith("}"):
-                continue
+        # 4. Plaintext secrets
+        for env_k, env_v in env.items():
+            k_lower = env_k.lower()
+            v_str = str(env_v or "")
+            if any(s_k in k_lower for s_k in ["db_url", "database_url", "conn_str", "postgres", "mysql"]):
+                if "password" in v_str.lower() or "://" in v_str:
+                    findings.append({
+                        "server": s_name,
+                        "severity": "HIGH",
+                        "category": "Credenziali Esposte",
+                        "title": "Stringa di Connessione a Database con Password in Chiaro",
+                        "detail": "La variabile di ambiente '{key}' contiene credenziali di connessione esposte.".replace("{key}", env_k),
+                        "remediation": "Sostituire con riferimento a variabile di ambiente: ${{ {key} }}.".replace("{key}", env_k)
+                    })
+                    penalty += 20
+            elif any(s_k in k_lower for s_k in ["api_key", "secret", "token", "auth", "private_key"]):
+                if not (v_str.startswith("${") and v_str.endswith("}")):
+                    findings.append({
+                        "server": s_name,
+                        "severity": "HIGH",
+                        "category": "Credenziali Esposte",
+                        "title": "Chiave API o Token Privato Esposto in Chiaro",
+                        "detail": "La variabile '{key}' contiene un token di autenticazione codificato direttamente.".replace("{key}", env_k),
+                        "remediation": "Utilizzare variabili di ambiente del sistema host: ${{ {key} }}.".replace("{key}", env_k)
+                    })
+                    penalty += 20
 
-            is_secret_key = bool(re.search(r"token|secret|key|password|passwd|auth|bearer", e_key, re.I))
-            is_sensitive_url = bool(re.search(r"postgres:|mongodb:|mysql:|redis:", val, re.I) and "@" in val)
-            is_known_prefix = bool(re.match(r"^sk-[a-zA-Z0-9_-]{20,}|^ghp_[a-zA-Z0-9]{20,}|^xoxb-[a-zA-Z0-9-]{20,}|^AKIA[0-9A-Z]{16}", val))
-
-            if is_sensitive_url:
-                findings.append({
-                    "server": s_name,
-                    "severity": "CRITICAL",
-                    "category": "Credenziali Esposte",
-                    "title": "Stringa di Connessione a Database con Password in Chiaro",
-                    "detail": "La variable d ambiente '{key}' espone credenziali di accesso nel manifesto.".replace("{key}", e_key),
-                    "remediation": "Sostituisci con un riferimento a variabile d ambiente: ${{ {key} }}.".replace("{key}", e_key)
-                })
-                penalty += 30
-            elif is_known_prefix or (is_secret_key and len(val) >= 10):
-                findings.append({
-                    "server": s_name,
-                    "severity": "CRITICAL",
-                    "category": "Credenziali Esposte",
-                    "title": "Chiave API o Token Privato Esposto in Chiaro",
-                    "detail": "La variable '{key}' contiene un segreto memorizzato direttamente nel file.".replace("{key}", e_key),
-                    "remediation": "Utilizza variabili d ambiente del sistema host: ${{ {key} }}.".replace("{key}", e_key)
-                })
-                penalty += 25
-
-        # 5. Supply chain / unpinned packages
-        if cmd in ["npx", "uvx"]:
+        # 5. Supply chain unpinned packages
+        if cmd in ["npx", "uvx", "pipx"]:
             pkg_found = False
             is_pinned = False
             pkg_name = ""
-            for arg in args:
-                a_str = str(arg)
-                if a_str == "-y" or a_str.startswith("--"):
-                    continue
-                if not pkg_found and ("/" in a_str or "-" in a_str or len(a_str) > 2):
+            for a in args:
+                a_str = str(a)
+                if not a_str.startswith("-"):
                     pkg_found = True
                     pkg_name = a_str
-                    if "@" in a_str and a_str.rfind("@") > 0:
-                        is_pinned = True
-                    if "==" in a_str:
+                    if "@" in a_str[1:] or "==" in a_str:
                         is_pinned = True
             if pkg_found and not is_pinned:
                 findings.append({
                     "server": s_name,
                     "severity": "MEDIUM",
-                    "category": "Catena di Approvvigionamento",
-                    "title": "Pacchetto Remoto senza Versione Fissata (Rischio Supply Chain)",
-                    "detail": "Il pacchetto '{pkg}' viene scaricato dinamicamente senza versione immutabile.".replace("{pkg}", pkg_name),
-                    "remediation": "Fissa la versione esatta (es: {pkg}@1.0.0 o ==1.0.0).".replace("{pkg}", pkg_name)
+                    "category": "Filiera di Fornitura Software",
+                    "title": "Pacchetto Remoto senza Versione Vincolata (Rischio Supply Chain)",
+                    "detail": "Il pacchetto '{pkg}' viene scaricato dinamicamente senza specifica di versione immutabile.".replace("{pkg}", pkg_name),
+                    "remediation": "Vincolare la versione esatta del pacchetto (esempio: {pkg}@1.0.0 o ==1.0.0).".replace("{pkg}", pkg_name)
                 })
                 penalty += 10
 
         # 6. SSRF / Metadata
         for arg in args:
             a_str = str(arg)
-            if any(mip in a_str for mip in METADATA_IPS):
+            if any(mip in a_str for mip in METADATA_HOSTS):
                 findings.append({
                     "server": s_name,
                     "severity": "HIGH",
-                    "category": "Rete e SSRF",
+                    "category": "Rete e Mitigazione SSRF",
                     "title": "Rischio di SSRF o Connessione a Metadati Cloud",
-                    "detail": "L argomento '{target}' punta a servizi locali o metadati cloud.".replace("{target}", a_str),
-                    "remediation": "Configura allowlist rigorose di domini e blocca indirizzi IP di metadati."
+                    "detail": "Il parametro '{target}' punta a servizi di metadati interni o endpoint protetti.".replace("{target}", a_str),
+                    "remediation": "Configurare elenchi di autorizzazione rigorosi per domini aziendali e bloccare servizi di metadati interni."
                 })
                 penalty += 20
 
@@ -190,8 +182,8 @@ def harden_config(servers):
                 cleaned_args.append("/workspace/sandbox/app-data")
             elif any(sp in a_str for sp in SENSITIVE_PATHS):
                 cleaned_args.append("/workspace/sandbox/isolated-storage")
-            elif "169.254.169.254" in a_str:
-                cleaned_args.append("127.0.0.1:blocked")
+            elif any(mh in a_str for mh in METADATA_HOSTS):
+                cleaned_args.append("metadata-blocked.internal")
             elif h_cmd in ["npx", "uvx"] and a_str.startswith("@modelcontextprotocol/server-") and "@" not in a_str[1:]:
                 cleaned_args.append(str(a) + "@0.6.2")
             else:
@@ -220,10 +212,10 @@ def main():
     parser = argparse.ArgumentParser(
         description="Auditor di Sicurezza per File di Configurazione MCP (Model Context Protocol)."
     )
-    parser.add_argument("--file", "-f", required=True, help="Percorso del file mcp.json o claude_desktop_config.json")
-    parser.add_argument("--strict", action="store_true", help="Modalita rigida: termina con codice 1 se viene rilevata qualsiasi anomalia")
-    parser.add_argument("--harden", "-o", help="Esporta file JSON con configurazione blindata e corretta")
-    parser.add_argument("--json", action="store_true", help="Mostra output in formato JSON strutturato")
+    parser.add_argument("--file", "-f", required=True, help="Percorso del file mcp.json o configurazione del client di intelligenza artificiale")
+    parser.add_argument("--strict", action="store_true", help="Modalità rigorosa: terminare con codice di uscita 1 se viene rilevata qualsiasi anomalia")
+    parser.add_argument("--harden", "-o", help="Esportare file JSON con configurazione corretta e blindata")
+    parser.add_argument("--json", action="store_true", help="Stampare l'output in formato JSON strutturato")
 
     args = parser.parse_args()
 
@@ -253,12 +245,12 @@ def main():
         print(f"AUDIT DI SICUREZZA MCP: TAVARDT Italia")
         print(f"Standard: Linee Guida di Sicurezza per Agenti Intelligenti e Minimo Privilegio")
         print(f"Server Analizzati: {report['server_count']}")
-        print(f"Punteggio di Sicurezza: {report['score']} / 100")
-        print(f"Vulnerabilita Rilevate: {len(report['findings'])}")
+        print(f"Indice di Sicurezza: {report['score']} / 100")
+        print(f"Vulnerabilità Rilevate: {len(report['findings'])}")
         print("=" * 64)
 
         if not report["findings"]:
-            print("Nessuna vulnerabilita rilevata. Configurazione conforme al principio del minimo privilegio.")
+            print("Nessuna vulnerabilità rilevata. Configurazione conforme al principio del minimo privilegio.")
         else:
             for idx, finding in enumerate(report["findings"], 1):
                 print(f"[{idx}] [{finding['severity']}] {finding['server']}: {finding['title']}")
@@ -267,7 +259,6 @@ def main():
                 print(f"    Remediation: {finding['remediation']}")
                 print("-" * 64)
 
-    # Exit code determination
     critical_count = sum(1 for f in report["findings"] if f["severity"] == "CRITICAL")
     if critical_count > 0:
         sys.exit(1)
