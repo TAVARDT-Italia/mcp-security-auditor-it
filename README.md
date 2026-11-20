@@ -7,11 +7,11 @@
 
 Auditor di sicurezza per server e strumenti MCP (Model Context Protocol). Web app nel browser e strumento CLI.
 
-Sviluppato per organizzazioni e professionisti in **Italia**, questo repository fornisce uno strumento specialistico per l audit e la messa in sicurezza delle configurazioni **Model Context Protocol (MCP)**, prevenendo vulnerabilita e accessi non autorizzati da parte di agenti intelligenti.
+Sviluppato per organizzazioni e professionisti in **Italia**, questo repository fornisce uno strumento specialistico per l'audit e la messa in sicurezza delle configurazioni **Model Context Protocol (MCP)**, prevenendo vulnerabilità e accessi non autorizzati da parte di agenti intelligenti.
 
 ---
 
-## Modalita Operative
+## Modalità Operative
 
 ### 1. Applicazione Web nel Browser (GitHub Pages)
 Interfaccia visiva accessibile direttamente dal browser web:
@@ -25,7 +25,7 @@ Per pipeline di integrazione continua (CI/CD) o verifiche locali:
 # Scansione di un file di configurazione
 python mcp_security_scanner.py --file mcp.json
 
-# Modalita rigorosa per gate di sicurezza (esce con codice 1 se vi sono anomalie)
+# Modalità rigorosa per gate di sicurezza (esce con codice 1 se vi sono anomalie)
 python mcp_security_scanner.py --file mcp.json --strict
 
 # Generazione automatica di configurazione blindata (Hardened)
@@ -43,7 +43,7 @@ python mcp_security_scanner.py --file mcp.json --json
 2. **Esecuzione di Comandi Shell**: Limitazione di shell interpretate dirette (`bash`, `sh`, `powershell`, `cmd`) e parametri dinamici rischiosi.
 3. **Protezione di Credenziali e Segreti**: Rilevamento di chiavi API, password e stringhe di connessione a database esposte in chiaro.
 4. **Sicurezza della Supply Chain**: Verifica del fissaggio rigoroso delle versioni per pacchetti eseguiti tramite `npx` o `uvx`.
-5. **Mitigazione SSRF**: Rilevamento di richieste verso interfacce di loopback e indirizzi di metadati cloud (`169.254.169.254`).
+5. **Mitigazione SSRF**: Rilevamento di richieste verso interfacce di loopback e indirizzi interni non autorizzati.
 
 ---
 
@@ -69,7 +69,7 @@ jobs:
 
 ---
 
-## Standard Istituzionali e Conformita
+## Standard Istituzionali e Conformità
 
 - **Giurisdizione**: Italia
 - **Quadro Normativo**: Linee Guida di Sicurezza per Agenti Intelligenti e Minimo Privilegio
@@ -78,7 +78,7 @@ jobs:
 ## Portali e Risorse TAVARDT
 
 - **Portale Principale**: [https://ag.tavardt.com/it/](https://ag.tavardt.com/it/)
-- **Strumenti di Sicurezza Informatica**: [https://tools.tavardt.com/it/](https://tools.tavardt.com/it/)
+- **Centro Strumenti TAVARDT**: [https://tools.tavardt.com/it/](https://tools.tavardt.com/it/)
 - **Contatto Tecnico**: [https://ag.tavardt.com/it/contatto/](https://ag.tavardt.com/it/contatto/)
 
 ---
