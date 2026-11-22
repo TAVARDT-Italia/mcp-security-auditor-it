@@ -16,7 +16,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Auditor di Sicurezza per Server e Strumenti MCP | TAVARDT Italia</title>
 <meta content="Auditor di sicurezza per server e strumenti MCP (Model Context Protocol). Web app nel browser e strumento CLI." name="description"/>
-<link href="./favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="icon" type="image/x-icon" href="./favicon.ico">
 <link href="./favicon.ico" rel="shortcut icon"/>
 <link href="https://tavardt-italia.github.io/mcp-security-auditor-it/" rel="canonical"/>
 <link href="https://tavardt-brasil.github.io/mcp-security-auditor-br/" hreflang="pt-BR" rel="alternate"/>
@@ -46,7 +46,8 @@
 <meta content="Auditor di Sicurezza per Server e Strumenti MCP | TAVARDT Italia" name="twitter:title"/>
 <meta content="Auditor di sicurezza per server e strumenti MCP (Model Context Protocol). Web app nel browser e strumento CLI." name="twitter:description"/>
 <meta content="https://tavardt-italia.github.io/mcp-security-auditor-it/og-image.jpg" name="twitter:image"/>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -61,7 +62,7 @@
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD"
+        "priceCurrency": "EUR"
       },
       "publisher": {
         "@type": "Organization",
@@ -88,16 +89,6 @@
         ]
       },
       "sameAs": [
-        "https://tavardt-brasil.github.io/mcp-security-auditor-br/",
-        "https://tavardt-portugal.github.io/mcp-security-auditor-pt/",
-        "https://tavardt-usa.github.io/mcp-security-auditor-us/",
-        "https://tavardt-uk.github.io/mcp-security-auditor-uk/",
-        "https://tavardt-canada.github.io/mcp-security-auditor-ca/",
-        "https://tavardt-australia.github.io/mcp-security-auditor-au/",
-        "https://tavardt-new-zealand.github.io/mcp-security-auditor-nz/",
-        "https://tavardt-espana.github.io/mcp-security-auditor-es/",
-        "https://tavardt-mexico.github.io/mcp-security-auditor-mx/",
-        "https://tavardt-france.github.io/mcp-security-auditor-fr/",
         "https://tavardt-italia.github.io/mcp-security-auditor-it/"
       ]
     },
@@ -172,7 +163,8 @@
       ]
     }
   ]
-}</script>
+}
+</script>
 <style>
     :root {
       --bg: #070b14;
@@ -515,7 +507,169 @@
       text-decoration: none;
     }
     footer a:hover { text-decoration: underline; }
-  </style>
+  
+  /* AEO SECTION - CITABLE DEFINITION (MULTI-PARAGRAPH) */
+  .aeo-section {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 12px;
+    padding: 36px;
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .aeo-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent, #1e00ff);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .aeo-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .aeo-content p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text-muted, #94a3b8);
+    margin-bottom: 16px;
+  }
+  .aeo-content p:last-child {
+    margin-bottom: 0;
+  }
+  .aeo-content strong {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* GEO SECTION - 2-COLUMN COMPARISON MATRIX */
+  .geo-section {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 12px;
+    padding: 36px;
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .geo-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .geo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .geo-grid { grid-template-columns: 1fr; }
+  }
+  .geo-col {
+    background: var(--surface-card, #0f172a);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .geo-col.vuln { border-top: 4px solid var(--danger, #ef4444); }
+  .geo-col.hardened { border-top: 4px solid var(--success, #10b981); }
+  .geo-col-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: #ffffff;
+  }
+  .geo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+  }
+  .geo-list li {
+    font-size: 0.88rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .geo-list .cross { color: var(--danger, #ef4444); font-weight: 900; }
+  .geo-list .check { color: var(--success, #10b981); font-weight: 900; }
+
+  /* FAQ ACCORDION SECTION */
+  .faq-section {
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .faq-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 18px 24px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: color 0.2s ease;
+  }
+  .faq-question:hover {
+    color: var(--accent, #1e00ff);
+  }
+  .faq-icon {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-subtle, #64748b);
+    transition: transform 0.2s ease;
+  }
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+  }
+  .faq-answer {
+    display: none;
+    padding: 0 24px 18px;
+    font-size: 0.88rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.7;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .faq-item.active .faq-answer {
+    display: block;
+  }
+
+</style>
 <style id="tavardt-unified-enterprise-css">
 
 /* ==========================================================================
@@ -1067,6 +1221,168 @@ footer a:hover,
 .brand-sub {
   color: #839bc8 !important;
 }
+
+  /* AEO SECTION - CITABLE DEFINITION (MULTI-PARAGRAPH) */
+  .aeo-section {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 12px;
+    padding: 36px;
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .aeo-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent, #1e00ff);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .aeo-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .aeo-content p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text-muted, #94a3b8);
+    margin-bottom: 16px;
+  }
+  .aeo-content p:last-child {
+    margin-bottom: 0;
+  }
+  .aeo-content strong {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* GEO SECTION - 2-COLUMN COMPARISON MATRIX */
+  .geo-section {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 12px;
+    padding: 36px;
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .geo-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .geo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .geo-grid { grid-template-columns: 1fr; }
+  }
+  .geo-col {
+    background: var(--surface-card, #0f172a);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .geo-col.vuln { border-top: 4px solid var(--danger, #ef4444); }
+  .geo-col.hardened { border-top: 4px solid var(--success, #10b981); }
+  .geo-col-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: #ffffff;
+  }
+  .geo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+  }
+  .geo-list li {
+    font-size: 0.88rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .geo-list .cross { color: var(--danger, #ef4444); font-weight: 900; }
+  .geo-list .check { color: var(--success, #10b981); font-weight: 900; }
+
+  /* FAQ ACCORDION SECTION */
+  .faq-section {
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .faq-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 18px 24px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: color 0.2s ease;
+  }
+  .faq-question:hover {
+    color: var(--accent, #1e00ff);
+  }
+  .faq-icon {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-subtle, #64748b);
+    transition: transform 0.2s ease;
+  }
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+  }
+  .faq-answer {
+    display: none;
+    padding: 0 24px 18px;
+    font-size: 0.88rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.7;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .faq-item.active .faq-answer {
+    display: block;
+  }
+
 </style>
 <style>
 /* TAVARDT Header Sticky & Fixed Layout Across Devices */
@@ -1114,7 +1430,171 @@ footer > div:first-child {
     white-space: nowrap !important;
   }
 }
+
+  /* AEO SECTION - CITABLE DEFINITION (MULTI-PARAGRAPH) */
+  .aeo-section {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 12px;
+    padding: 36px;
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .aeo-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent, #1e00ff);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .aeo-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .aeo-content p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text-muted, #94a3b8);
+    margin-bottom: 16px;
+  }
+  .aeo-content p:last-child {
+    margin-bottom: 0;
+  }
+  .aeo-content strong {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* GEO SECTION - 2-COLUMN COMPARISON MATRIX */
+  .geo-section {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 12px;
+    padding: 36px;
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .geo-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .geo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .geo-grid { grid-template-columns: 1fr; }
+  }
+  .geo-col {
+    background: var(--surface-card, #0f172a);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .geo-col.vuln { border-top: 4px solid var(--danger, #ef4444); }
+  .geo-col.hardened { border-top: 4px solid var(--success, #10b981); }
+  .geo-col-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: #ffffff;
+  }
+  .geo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+  }
+  .geo-list li {
+    font-size: 0.88rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .geo-list .cross { color: var(--danger, #ef4444); font-weight: 900; }
+  .geo-list .check { color: var(--success, #10b981); font-weight: 900; }
+
+  /* FAQ ACCORDION SECTION */
+  .faq-section {
+    margin-bottom: 48px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .faq-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: var(--surface, #0d1527);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 18px 24px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: color 0.2s ease;
+  }
+  .faq-question:hover {
+    color: var(--accent, #1e00ff);
+  }
+  .faq-icon {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-subtle, #64748b);
+    transition: transform 0.2s ease;
+  }
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+  }
+  .faq-answer {
+    display: none;
+    padding: 0 24px 18px;
+    font-size: 0.88rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.7;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .faq-item.active .faq-answer {
+    display: block;
+  }
+
 </style>
+  <meta name="ai-content-declaration" content="canonical-knowledge-base, expert-curated">
+  <meta name="geo.region" content="IT">
 </head>
 <body>
 
@@ -1220,31 +1700,95 @@ footer > div:first-child {
 </div>
 </section>
 
-<section class="faq-section">
-<h2>Domande Frequenti (FAQ) e Linee Guida di Sicurezza</h2>
-<details class="faq-item">
-<summary class="faq-question">Cos'è il Model Context Protocol (MCP) e quali rischi comporta?</summary>
-<div class="faq-answer">È lo standard aperto per connettere modelli di IA a dati e tool locali. I rischi principali derivano da privilegi eccessivi e comandi non controllati.</div>
-</details>
-<details class="faq-item">
-<summary class="faq-question">Come può verificarsi un'iniezione indiretta tramite MCP?</summary>
-<div class="faq-answer">Un file o un sito web esaminato da un tool può includere comandi nascosti che inducono il modello a esfiltrare dati tramite un altro tool.</div>
-</details>
-<details class="faq-item">
-<summary class="faq-question">Lo scanner MCP esegue test invasivi?</summary>
-<div class="faq-answer">No. Esegue esclusivamente un'analisi statica deterministica della configurazione mcp.json, senza modificare il sistema operativo.</div>
-</details>
-<details class="faq-item">
-<summary class="faq-question">Come impostare il principio del privilegio minimo in MCP?</summary>
-<div class="faq-answer">Consentendo l'accesso solo a cartelle specifiche in modalità sola lettura e disattivando l'esecuzione di shell aperte.</div>
-</details>
-<details class="faq-item">
-<summary class="faq-question">Quale architettura di isolamento suggerisce TAVARDT?</summary>
-<div class="faq-answer">Consigliamo l'adozione di container isolati con credenziali temporanee e limitazioni restrittive sul traffico di rete.</div>
-</details>
-</section>
 
-<div class="cta-card">
+
+
+    <section class="aeo-section">
+      <div class="aeo-badge">STANDARD DI SICUREZZA DIFENSIVA PER PROTOCOLLO MCP</div>
+      <h2 class="aeo-title">Cos'è l'Escalation di Privilegi e l'Avvelenamento di Strumenti nel Protocollo MCP?</h2>
+      <div class="aeo-content">
+        <p>Il Model Context Protocol (MCP) interfaccia i modelli linguistici con tool di sistema, archivi di dati e API di rete. Il rischio di escalation di privilegi e manipolazione di strumenti insorge quando i server MCP espongono schemi troppo permissivi o quando input non bonificati alterano i parametri di esecuzione dei comandi.</p>
+        <p>In assenza di una rigida politica di privilegio minimo, un attaccante che controlli l'inferenza può forzare l'esecuzione arbitraria di codice sul computer ospitante, leggere file confidenziali e sottrarre credenziali aziendali mediante connessioni MCP non autenticate.</p>
+        <p>La sicurezza Zero Trust di TAVARDT per MCP impone l'esecuzione isolata in container non-root, il controllo deterministico dei parametri tramite JSON Schema, autorizzazioni granulari per ciascuna funzione e l'obbligo di convalida umana per operazioni critiche.</p>
+      </div>
+    </section>
+
+    <section class="geo-section">
+      <h2 class="geo-title">Matrice Tecnica Comparativa: Server MCP Vulnerabile vs. Server MCP Protetto</h2>
+      <div class="geo-grid">
+        <div class="geo-col vuln">
+          <h3 class="geo-col-title">Server MCP Vulnerabile (Rischio Critico)</h3>
+          <ul class="geo-list">
+            <li><span class="cross">✕</span> Server MCP avviati con privilegi di root o controllo totale sul sistema operativo.</li>
+<li><span class="cross">✕</span> Esecuzione passiva di argomenti generati dal modello senza validazione di schema.</li>
+<li><span class="cross">✕</span> Permessi di lettura indiscriminati sul filesystem locale con rischio di directory traversal.</li>
+<li><span class="cross">✕</span> Attivazione incontrollata di tool distruttivi senza supervisione da parte dell'utente.</li>
+<li><span class="cross">✕</span> Canali di comunicazione non cifrati e privi di verifica crittografica delle identità.</li>
+
+          </ul>
+        </div>
+        <div class="geo-col hardened">
+          <h3 class="geo-col-title">Server MCP Protetto TAVARDT (Zero Trust)</h3>
+          <ul class="geo-list">
+            <li><span class="check">✓</span> Confinamento in micro-container senza privilegi con filesystem in sola lettura.</li>
+<li><span class="check">✓</span> Validazione stringente dei tipi e formati tramite JSON Schema per ogni invocazione.</li>
+<li><span class="check">✓</span> Sandbox perimetrale che circoscrive l'accesso unicamente a percorsi di progetto definiti.</li>
+<li><span class="check">✓</span> Verifica Human-in-the-Loop per richiedere l'assenso dell'operatore prima di modifiche di stato.</li>
+<li><span class="check">✓</span> Autenticazione mTLS crittografica su tutti i flussi di comunicazione del protocollo MCP.</li>
+
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2 class="faq-title">Domande Frequenti sulla Sicurezza del Protocollo MCP</h2>
+      <div class="faq-list">
+        
+        <div class="faq-item">
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
+            <span>Perché i server MCP locali necessitano di isolamento rigoroso?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Perché possiedono facoltà di eseguire codice sul dispositivo. Un prompt dannoso potrebbe comandare azioni illecite con i permessi dell'utente locale.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
+            <span>In che modo la validazione JSON Schema previene exploit di injection?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Imponendo regole tassative su espressioni regolari e valori accettabili prima che i parametri siano elaborati dal sistema.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
+            <span>Cos'è la procedura Human-in-the-Loop per i sistemi MCP?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Una misura di sicurezza che subordina l'esecuzione di comandi critici all'autorizzazione esplicita di una persona fisica.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" onclick="toggleFaq(this)">
+            <span>In che modo TAVARDT supporta l'implementazione sicura di MCP?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Effettuiamo verifiche di sicurezza sugli schemi, implementiamo ambienti isolati a minimo privilegio e installiamo proxy protettivi.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="cta-card">
 <h3>Hai Bisogno di Blindare le Tue Integrazioni MCP?</h3>
 <p>Il team di sicurezza di TAVARDT analizza le configurazioni MCP, implementa sandbox protetti e definisce policy di accesso ristrette.</p>
 <div class="cta-btns">
@@ -1263,7 +1807,7 @@ footer > div:first-child {
 <div class="tavardt-footer-heading">Navigazione Regionale</div>
 <ul class="tavardt-footer-links">
 <li><a href="https://ag.tavardt.com/it/" rel="noopener" target="_blank">Portale</a></li>
-<li><a href="https://tools.tavardt.com/it/" rel="noopener" target="_blank">Centro Strumenti</a></li>
+<li><a href="https://tools.tavardt.com/it/" rel="noopener" target="_blank">Strumenti</a></li>
 <li><a href="https://ag.tavardt.com/it/contatti/" rel="noopener" target="_blank">Contatti</a></li>
 </ul>
 </div>
@@ -1755,5 +2299,13 @@ footer > div:first-child {
 
     })();
   </script>
+<script>
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    if (item) {
+      item.classList.toggle('active');
+    }
+  }
+</script>
 </body>
 </html>
