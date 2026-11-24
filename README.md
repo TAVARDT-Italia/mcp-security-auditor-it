@@ -73,7 +73,6 @@ jobs:
 
 - **Quadro Normativo**: Linee Guida di Sicurezza per Agenti Intelligenti e Minimo Privilegio
 
-
 ## Portali e Risorse TAVARDT
 
 - **Portale Principale**: [Portale Istituzionale](https://ag.tavardt.com/it/)
@@ -84,6 +83,14 @@ jobs:
 
 ### Licenza
 Rilasciato sotto licenza MIT. Per maggiori dettagli consultare il file [LICENSE](LICENSE).
+
+***
+
+## Link Utili
+
+* **Portale Aziendale:** https://ag.tavardt.com/it/
+* **Suite di Diagnostica:** https://tools.tavardt.com/it/
+* **Contatto Tecnico:** https://ag.tavardt.com/it/contatto/
 
 ***
 
