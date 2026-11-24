@@ -72,12 +72,12 @@ jobs:
 ## Standard Istituzionali e Conformità
 
 - **Quadro Normativo**: Linee Guida di Sicurezza per Agenti Intelligenti e Minimo Privilegio
-- **Organizzazione**: [TAVARDT-Italia](https://github.com/TAVARDT-Italia)
+
 
 ## Portali e Risorse TAVARDT
 
-- **Portale Principale**: [Portal Institucional](https://ag.tavardt.com/it/)
-- **Centro Strumenti**: [Central de Ferramentas](https://tools.tavardt.com/it/)
+- **Portale Principale**: [Portale Istituzionale](https://ag.tavardt.com/it/)
+- **Centro Strumenti**: [Centro Strumenti](https://tools.tavardt.com/it/)
 - **Contatto Tecnico**: [https://ag.tavardt.com/it/contatto/](https://ag.tavardt.com/it/contatto/)
 
 ***
