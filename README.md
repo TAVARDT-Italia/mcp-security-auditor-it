@@ -2,14 +2,14 @@
 
 [![Live Demo](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-06b6d4?style=for-the-badge)](https://tavardt-italia.github.io/mcp-security-auditor-it/)
 [![Standard](https://img.shields.io/badge/Standard-Minimo%20Privilegio-3b82f6?style=for-the-badge)](https://tavardt-italia.github.io/mcp-security-auditor-it/)
-[![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client--Side-10b981?style=for-the-badge)](https://tavardt-italia.github.io/mcp-security-auditor-it/)
+[![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client-Side-10b981?style=for-the-badge)](https://tavardt-italia.github.io/mcp-security-auditor-it/)
 [![License](https://img.shields.io/badge/License-MIT-slate?style=for-the-badge)](LICENSE)
 
 Auditor di sicurezza per server e strumenti MCP (Model Context Protocol). Web app nel browser e strumento CLI.
 
 Sviluppato per organizzazioni e professionisti in **Italia**, questo repository fornisce uno strumento specialistico per l'audit e la messa in sicurezza delle configurazioni **Model Context Protocol (MCP)**, prevenendo vulnerabilità e accessi non autorizzati da parte di agenti intelligenti.
 
----
+***
 
 ## Modalità Operative
 
@@ -23,19 +23,19 @@ Per pipeline di integrazione continua (CI/CD) o verifiche locali:
 
 ```bash
 # Scansione di un file di configurazione
-python mcp_security_scanner.py --file mcp.json
+python mcp_security_scanner.py -file mcp.json
 
 # Modalità rigorosa per gate di sicurezza (esce con codice 1 se vi sono anomalie)
-python mcp_security_scanner.py --file mcp.json --strict
+python mcp_security_scanner.py -file mcp.json -strict
 
 # Generazione automatica di configurazione blindata (Hardened)
-python mcp_security_scanner.py --file mcp.json --harden mcp-hardened.json
+python mcp_security_scanner.py -file mcp.json -harden mcp-hardened.json
 
 # Esportazione in formato JSON
-python mcp_security_scanner.py --file mcp.json --json
+python mcp_security_scanner.py -file mcp.json -json
 ```
 
----
+***
 
 ## Vettori di Sicurezza Ispezionati
 
@@ -45,7 +45,7 @@ python mcp_security_scanner.py --file mcp.json --json
 4. **Sicurezza della Supply Chain**: Verifica del fissaggio rigoroso delle versioni per pacchetti eseguiti tramite `npx` o `uvx`.
 5. **Mitigazione SSRF**: Rilevamento di richieste verso interfacce di loopback e indirizzi interni non autorizzati.
 
----
+***
 
 ## Integrazione con GitHub Actions
 
@@ -64,10 +64,10 @@ jobs:
           python-version: '3.11'
       - name: Esegui Audit MCP
         run: |
-          python mcp_security_scanner.py --file config/mcp.json --strict
+          python mcp_security_scanner.py -file config/mcp.json -strict
 ```
 
----
+***
 
 ## Standard Istituzionali e Conformità
 
@@ -77,11 +77,11 @@ jobs:
 
 ## Portali e Risorse TAVARDT
 
-- **Portale Principale**: [https://ag.tavardt.com/it/](https://ag.tavardt.com/it/)
-- **Centro Strumenti**: [https://tools.tavardt.com/it/](https://tools.tavardt.com/it/)
+- **Portale Principale**: [Portal Institucional](https://ag.tavardt.com/it/)
+- **Centro Strumenti**: [Central de Ferramentas](https://tools.tavardt.com/it/)
 - **Contatto Tecnico**: [https://ag.tavardt.com/it/contatto/](https://ag.tavardt.com/it/contatto/)
 
----
+***
 
 ### Licenza
 Rilasciato sotto licenza MIT. Per maggiori dettagli consultare il file [LICENSE](LICENSE).
