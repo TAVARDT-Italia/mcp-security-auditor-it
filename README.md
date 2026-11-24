@@ -71,7 +71,6 @@ jobs:
 
 ## Standard Istituzionali e Conformità
 
-- **Giurisdizione**: Italia
 - **Quadro Normativo**: Linee Guida di Sicurezza per Agenti Intelligenti e Minimo Privilegio
 - **Organizzazione**: [TAVARDT-Italia](https://github.com/TAVARDT-Italia)
 
@@ -85,3 +84,7 @@ jobs:
 
 ### Licenza
 Rilasciato sotto licenza MIT. Per maggiori dettagli consultare il file [LICENSE](LICENSE).
+
+***
+
+© 2026 TAVARDT. Tutti i diritti riservati.
